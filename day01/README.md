@@ -1,0 +1,1 @@
+didn't use AIs for this exercise (apart from line completion in vscode that is supported by github copilot AI)
