@@ -12,16 +12,27 @@ This folder contains one shared BMI logic module and three different user interf
 
 ## Shared Module
 
-The shared module exposes one public function:
+The shared module exposes two public functions:
 
-- `evaluate_bmi(weight, height)`
+- `evaluate_bmi(weight, height, imperial=False)`
+- `convert_imperial_to_metric(weight_lbs, height_in)`
 
-It does all of the following:
+`evaluate_bmi` does all of the following:
 
 - Validates positive input values.
+- Optionally converts imperial inputs (lbs/inches) to metric (kg/m).
 - Calculates BMI.
 - Determines BMI category.
 - Returns `(bmi, category)`.
+
+## Unit Systems
+
+Both **Metric** (kg / m) and **Imperial** (lbs / in) inputs are supported across all three interfaces.
+
+| Unit System | Weight | Height |
+|-------------|--------|--------|
+| Metric      | kg     | m      |
+| Imperial    | lbs    | in     |
 
 ## Run Each Interface
 
@@ -33,10 +44,16 @@ From the repository root:
 python day03/main.py
 ```
 
+The program will prompt you to choose Metric (`M`) or Imperial (`I`) units.
+
 2. Command line arguments
 
 ```bash
+# Metric (default)
 python day03/cli_argv.py 70 1.75
+
+# Imperial
+python day03/cli_argv.py --imperial 154 69
 ```
 
 3. Tkinter GUI
@@ -44,6 +61,8 @@ python day03/cli_argv.py 70 1.75
 ```bash
 python day03/gui_tkinter.py
 ```
+
+Select the unit system using the radio buttons before entering values.
 
 ## Run Tests
 
@@ -64,3 +83,5 @@ used github copilot in vscode. prompt:
 >> 
 >> Create a test file with a number of test-cases for the module (not the interface wrappers).
 >> document the code in a README.md file.
+>> 
+>> - Add support for Imperial units (lbs/in) across all interfaces and the shared service module.

@@ -14,20 +14,26 @@ def main():
     print("=" * 40)
     print("Welcome to the BMI Calculator!")
     print("=" * 40)
-    
+
     try:
-        # Get user input
-        weight = float(input("Enter your weight in kilograms (kg): "))
-        height = float(input("Enter your height in meters (m): "))
-        
-        bmi, category = evaluate_bmi(weight, height)
-        
+        unit_choice = input("Choose unit system - enter 'M' for Metric (kg/m) or 'I' for Imperial (lbs/in): ").strip().upper()
+        imperial = unit_choice == "I"
+
+        if imperial:
+            weight = float(input("Enter your weight in pounds (lbs): "))
+            height = float(input("Enter your height in inches (in): "))
+        else:
+            weight = float(input("Enter your weight in kilograms (kg): "))
+            height = float(input("Enter your height in meters (m): "))
+
+        bmi, category = evaluate_bmi(weight, height, imperial=imperial)
+
         # Display results
         print("\n" + "=" * 40)
         print(f"Your BMI: {bmi}")
         print(f"Category: {category}")
         print("=" * 40)
-        
+
     except ValueError as error:
         print(f"Error: {error}")
 

@@ -9,16 +9,28 @@ except ModuleNotFoundError:
 
 
 def main():
-    """Run BMI calculation using sys.argv input."""
-    if len(sys.argv) != 3:
-        print("Usage: python day03/cli_argv.py <weight_kg> <height_m>")
+    """Run BMI calculation using sys.argv input.
+
+    Usage (metric):   python day03/cli_argv.py <weight_kg> <height_m>
+    Usage (imperial): python day03/cli_argv.py --imperial <weight_lbs> <height_in>
+    """
+    args = sys.argv[1:]
+    imperial = "--imperial" in args
+    if imperial:
+        args = [a for a in args if a != "--imperial"]
+
+    if len(args) != 2:
+        print("Usage (metric):   python day03/cli_argv.py <weight_kg> <height_m>")
+        print("Usage (imperial): python day03/cli_argv.py --imperial <weight_lbs> <height_in>")
         return
 
     try:
-        weight = float(sys.argv[1])
-        height = float(sys.argv[2])
-        bmi, category = evaluate_bmi(weight, height)
+        weight = float(args[0])
+        height = float(args[1])
+        bmi, category = evaluate_bmi(weight, height, imperial=imperial)
 
+        unit_label = "lbs/in (imperial)" if imperial else "kg/m (metric)"
+        print(f"Units: {unit_label}")
         print(f"BMI: {bmi}")
         print(f"Category: {category}")
     except ValueError as error:
